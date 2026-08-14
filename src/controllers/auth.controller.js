@@ -26,4 +26,13 @@ async function registerUserController(req, res) {
             message: "Account already exists with this email address or username"
         })
     }
+
+    
+}
+
+
+
+
+module.exports = {
+    registerUserController
 }
