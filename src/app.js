@@ -5,4 +5,4 @@ const app = express()
 app.use(express.json())
 
 
-modle.exports = app
+module.exports = app
