@@ -16,6 +16,6 @@ authRouter.post("/register", authController.registerUserController)
  * @description login user with email and password
  * @access Public
  */
-authRouter.post("/api/login", authController.loginUserController)
+authRouter.post("/login", authController.loginUserController)
 
 module.exports = authRouter
