@@ -1,14 +1,31 @@
+/* ── Navbar: Luminous Labs slide-in-from-top + blur reveal ── */
 .app-navbar {
     width: 100%;
     position: sticky;
     top: 0;
     z-index: 50;
     background: rgba(8, 9, 14, 0.75);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
     border-bottom: 1px solid var(--border-subtle);
     padding: 0.75rem 1.5rem;
-    transition: background-color 0.2s ease, border-color 0.2s ease;
+
+    /* Entry animation — starts hidden (translateY -100% + blur) */
+    opacity: 0;
+    transform: translateY(-100%);
+    filter: blur(6px);
+    transition:
+        opacity 700ms cubic-bezier(0.625, 0.05, 0, 1),
+        transform 700ms cubic-bezier(0.625, 0.05, 0, 1),
+        filter 700ms cubic-bezier(0.625, 0.05, 0, 1),
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+
+    &--visible {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0px);
+    }
 
     &__container {
         max-width: 1280px;
@@ -38,7 +55,7 @@
             justify-content: center;
             color: #ffffff;
             box-shadow: 0 0 16px rgba(99, 102, 241, 0.45);
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s;
+            transition: transform 400ms cubic-bezier(0.625, 0.05, 0, 1), box-shadow 400ms;
 
             svg {
                 width: 20px;
@@ -47,8 +64,8 @@
         }
 
         &:hover .brand-logo {
-            transform: scale(1.06) rotate(-4deg);
-            box-shadow: 0 0 24px rgba(168, 85, 247, 0.6);
+            transform: scale(1.08) rotate(-5deg);
+            box-shadow: 0 0 28px rgba(168, 85, 247, 0.65);
         }
 
         .brand-title {
@@ -78,6 +95,13 @@
             border: 1px solid rgba(99, 102, 241, 0.3);
             text-transform: uppercase;
             letter-spacing: 0.05em;
+
+            /* Luminous Labs scale hover on badge */
+            transition: transform 400ms cubic-bezier(0.625, 0.05, 0, 1);
+        }
+
+        &:hover .brand-badge {
+            transform: scale(1.06);
         }
     }
 
@@ -97,6 +121,13 @@
         border-radius: 999px;
         font-size: 0.825rem;
         color: var(--text-secondary);
+        transition: border-color 400ms cubic-bezier(0.625, 0.05, 0, 1),
+                    background 400ms cubic-bezier(0.625, 0.05, 0, 1);
+
+        &:hover {
+            border-color: rgba(99, 102, 241, 0.35);
+            background: rgba(99, 102, 241, 0.06);
+        }
 
         .avatar {
             width: 26px;
@@ -134,7 +165,20 @@
         color: #fb7185;
         border: 1px solid rgba(244, 63, 94, 0.2);
         cursor: pointer;
-        transition: all 0.2s ease;
+        /* Luminous Labs easing on button hover */
+        transition: all 400ms cubic-bezier(0.625, 0.05, 0, 1);
+        position: relative;
+        overflow: hidden;
+
+        /* Sweep shimmer on hover */
+        &::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 600ms cubic-bezier(0.625, 0.05, 0, 1);
+        }
 
         svg {
             width: 14px;
@@ -146,6 +190,14 @@
             border-color: rgba(244, 63, 94, 0.35);
             color: #fda4af;
             transform: translateY(-1px);
+
+            &::after {
+                transform: translateX(100%);
+            }
+        }
+
+        &:active {
+            transform: scale(0.95);
         }
     }
 }

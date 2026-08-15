@@ -9,6 +9,7 @@ import { useInterview } from '../hooks/useInterview.js'
 import Navbar from '../../../components/Navbar'
 import AmbientBg from '../../../components/AmbientBg'
 import Toast from '../../../components/Toast'
+import { useScrollReveal } from '../../../hooks/useScrollReveal.js'
 
 const SAMPLE_TEMPLATES = [
     {
@@ -38,6 +39,15 @@ const SKILL_SUGGESTIONS = [
     'Team Mentorship'
 ]
 
+/* Marquee badges shown below the hero (like LL's logo strip) */
+const MARQUEE_SKILLS = [
+    'Technical Interview', 'STAR Framework', 'System Design', 'Behavioral Questions',
+    'LeetCode Patterns', 'API Design', 'Cloud Architecture', 'Leadership Signals',
+    'Code Review', 'Performance Optimization', 'Data Structures', 'AI & ML',
+    'Technical Interview', 'STAR Framework', 'System Design', 'Behavioral Questions',
+    'LeetCode Patterns', 'API Design', 'Cloud Architecture', 'Leadership Signals',
+]
+
 const LOADER_STEPS = [
     'Parsing target role competencies and core requirements...',
     'Evaluating candidate profile, experience and skills...',
@@ -55,6 +65,9 @@ const Home = () => {
     const [loaderStep, setLoaderStep] = useState(0)
     const resumeInputRef = useRef()
     const navigate = useNavigate()
+
+    /* Activate scroll-triggered blur reveals */
+    useScrollReveal({ threshold: 0.1, rootMargin: '0px 0px -30px 0px' })
 
     useEffect(() => {
         getReports()
@@ -178,23 +191,28 @@ const Home = () => {
             )}
 
             <main className="home-container">
-                {/* Hero Header */}
+                {/* Hero Header — blur-reveal + gradient text sweep */}
                 <section className="home-hero">
-                    <div className="home-hero__badge">
+                    {/* Badge: blur-reveal, no delay */}
+                    <div className="home-hero__badge" data-reveal data-delay="0">
                         <Sparkles size={14} />
                         <span>AI-Powered Career Intelligence</span>
                     </div>
 
-                    <h1>
-                        Supercharge Your Next <span className="highlight">Interview Strategy</span>
+                    {/* H1: blur-reveal with gradient sweep on "Interview Strategy" */}
+                    <h1 data-reveal data-delay="100">
+                        Supercharge Your Next{' '}
+                        {/* gradient-sweep-text mirrors [data-grad] from Luminous Labs */}
+                        <span className="highlight gradient-sweep-text">Interview Strategy</span>
                     </h1>
 
-                    <p>
+                    {/* Subtitle: staggered blur-reveal */}
+                    <p data-reveal data-delay="200">
                         Paste the target job description and upload your resume or profile. We'll generate targeted technical questions, STAR behavioral frameworks, and a custom 7-day preparation roadmap.
                     </p>
 
-                    {/* Quick Sample Template Chips */}
-                    <div className="sample-templates">
+                    {/* Quick Sample Template Chips — staggered */}
+                    <div className="sample-templates" data-reveal data-delay="300">
                         <span className="sample-templates__label">Quick Fill:</span>
                         {SAMPLE_TEMPLATES.map((tmpl, i) => (
                             <button
@@ -210,8 +228,20 @@ const Home = () => {
                     </div>
                 </section>
 
-                {/* Main Studio Card */}
-                <div className="studio-card">
+                {/* Marquee skill strip — mirrors the Luminous Labs logo marquee */}
+                <div className="skill-marquee-wrap" data-reveal data-delay="400" aria-hidden="true">
+                    <div className="skill-marquee-viewport">
+                        {/* Duplicated list for seamless loop */}
+                        <div className="marquee-track">
+                            {MARQUEE_SKILLS.map((skill, i) => (
+                                <span key={i} className="marquee-badge">{skill}</span>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                {/* Main Studio Card — blur-reveal */}
+                <div className="studio-card" data-reveal data-delay="200">
                     <div className="studio-card__body">
                         
                         {/* Left Panel - Job Description */}
@@ -358,6 +388,7 @@ const Home = () => {
                             <span>AI Strategy Engine Ready &bull; ~20s generation</span>
                         </div>
 
+                        {/* CTA button — gradient sweep activates on hover via CSS */}
                         <button
                             type="button"
                             onClick={handleGenerateReport}
@@ -373,18 +404,21 @@ const Home = () => {
                 {/* Recent Reports Section */}
                 {reports && reports.length > 0 && (
                     <section className="recent-section">
-                        <div className="recent-section__header">
+                        <div className="recent-section__header" data-reveal>
                             <h2>My Recent Interview Strategies</h2>
                             <span className="reports-count">{reports.length} Plans</span>
                         </div>
 
                         <div className="reports-grid">
-                            {reports.map((item) => {
+                            {reports.map((item, idx) => {
                                 const scoreTier = item.matchScore >= 80 ? 'high' : item.matchScore >= 60 ? 'mid' : 'low'
                                 return (
                                     <div
                                         key={item._id}
                                         className="report-card"
+                                        /* Stagger cards using data-reveal + delay */
+                                        data-reveal
+                                        data-delay={Math.min(idx * 100, 500)}
                                         onClick={() => navigate(`/interview/${item._id}`)}
                                     >
                                         <div className="report-card-top">

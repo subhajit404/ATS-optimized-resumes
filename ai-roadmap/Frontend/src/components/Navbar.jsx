@@ -1,12 +1,23 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useNavigate, Link } from 'react-router'
-import { Sparkles, LogOut, User, Compass } from 'lucide-react'
+import { Sparkles, LogOut } from 'lucide-react'
 import { useAuth } from '../features/auth/hooks/useAuth'
 import './navbar.scss'
 
 export const Navbar = () => {
     const { user, handleLogout } = useAuth()
     const navigate = useNavigate()
+    const navRef = useRef(null)
+
+    /* Luminous Labs-style: slide in from top + blur-in on mount */
+    useEffect(() => {
+        const el = navRef.current
+        if (!el) return
+        // Brief delay lets browser paint first so the animation is visible
+        requestAnimationFrame(() => {
+            el.classList.add('app-navbar--visible')
+        })
+    }, [])
 
     const onLogout = async () => {
         await handleLogout()
@@ -14,7 +25,7 @@ export const Navbar = () => {
     }
 
     return (
-        <header className="app-navbar">
+        <header className="app-navbar" ref={navRef}>
             <div className="app-navbar__container">
                 <Link to="/" className="app-navbar__brand">
                     <div className="brand-logo">

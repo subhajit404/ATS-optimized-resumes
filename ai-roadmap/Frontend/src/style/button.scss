@@ -1,3 +1,4 @@
+/* ── Buttons: Luminous Labs sweep gradient + arrow slide ── */
 .button {
     display: inline-flex;
     align-items: center;
@@ -17,23 +18,25 @@
     white-space: nowrap;
     position: relative;
     overflow: hidden;
-    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    /* Luminous Labs easing on all transitions */
+    transition: all 600ms cubic-bezier(0.625, 0.05, 0, 1);
 
+    /* LL-style shimmer sweep on hover */
     &::after {
         content: '';
         position: absolute;
         inset: 0;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
-        transform: translateX(-100%);
-        transition: transform 0.6s ease;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.14), transparent);
+        transform: translateX(-120%);
+        transition: transform 700ms cubic-bezier(0.625, 0.05, 0, 1);
     }
 
     &:hover::after {
-        transform: translateX(100%);
+        transform: translateX(120%);
     }
 
     &:active {
-        transform: scale(0.97);
+        transform: scale(0.95);
     }
 
     &:disabled {
@@ -43,14 +46,47 @@
     }
 
     &.primary-button {
-        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 60%, #ec4899 120%);
+        /* Base gradient */
+        background-image: linear-gradient(
+            90deg,
+            #6366f1 0,
+            #6366f1 30%,
+            #818cf8 42%,
+            #c084fc 54%,
+            #f472b6 64%,
+            #06b6d4 74%,
+            #8b5cf6 88%,
+            #6366f1 100%
+        );
+        background-size: 300% 100%;
+        background-position: 100% 50%;
         color: #ffffff;
         border-color: rgba(255, 255, 255, 0.15);
-        box-shadow: 0 4px 20px -2px rgba(99, 102, 241, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        box-shadow:
+            0 4px 20px -2px rgba(99, 102, 241, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+
+        /* Luminous Labs: gradient sweeps in on hover */
+        transition:
+            background-position 900ms cubic-bezier(0.625, 0.05, 0, 1),
+            box-shadow 400ms cubic-bezier(0.625, 0.05, 0, 1),
+            transform 400ms cubic-bezier(0.625, 0.05, 0, 1),
+            border-color 400ms cubic-bezier(0.625, 0.05, 0, 1);
 
         &:hover {
-            box-shadow: 0 6px 28px 0 rgba(99, 102, 241, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.3);
-            transform: translateY(-1px);
+            background-position: 0% 50%;
+            box-shadow:
+                0 8px 32px 0 rgba(99, 102, 241, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Arrow slide-out effect (for SVG arrow icons inside btn) */
+        svg:last-child {
+            transition: transform 400ms cubic-bezier(0.625, 0.05, 0, 1);
+        }
+        &:hover svg:last-child {
+            transform: translateX(4px);
         }
     }
 
@@ -59,6 +95,7 @@
         color: #e2e8f0;
         border-color: rgba(255, 255, 255, 0.1);
         backdrop-filter: blur(12px);
+        transition: all 400ms cubic-bezier(0.625, 0.05, 0, 1);
 
         &:hover {
             background: rgba(255, 255, 255, 0.08);
@@ -73,6 +110,7 @@
         color: #94a3b8;
         border: none;
         padding: 0.5rem 0.75rem;
+        transition: all 400ms cubic-bezier(0.625, 0.05, 0, 1);
 
         &:hover {
             color: #f1f5f9;
@@ -84,6 +122,7 @@
         background: rgba(239, 68, 68, 0.12);
         color: #f87171;
         border-color: rgba(239, 68, 68, 0.25);
+        transition: all 400ms cubic-bezier(0.625, 0.05, 0, 1);
 
         &:hover {
             background: rgba(239, 68, 68, 0.2);

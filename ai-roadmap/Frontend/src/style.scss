@@ -65,7 +65,7 @@ html, body, #root {
     overflow-x: hidden;
 }
 
-/* ── Minimalist Ambient Canvas Background ── */
+/* ── Ambient Canvas Background (Luminous Labs enhanced) ── */
 .ambient-bg {
     position: fixed;
     inset: 0;
@@ -73,40 +73,63 @@ html, body, #root {
     z-index: 0;
     overflow: hidden;
 
+    /* SVG noise grain layer — same approach as Luminous Labs */
+    &__noise {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.04;
+        mix-blend-mode: overlay;
+        pointer-events: none;
+    }
+
     &__orb {
         position: absolute;
         border-radius: 50%;
-        filter: blur(120px);
-        opacity: 0.4;
-        animation: floatOrb 20s infinite alternate ease-in-out;
+        filter: blur(140px);
+        opacity: 0.42;
+        /* Luminous Labs easing on orb movement */
+        animation: floatOrb 22s infinite alternate var(--ease-ll, cubic-bezier(0.625, 0.05, 0, 1));
 
         &--1 {
-            width: 500px;
-            height: 500px;
-            top: -100px;
-            left: 15%;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.35), transparent 70%);
-            animation-duration: 22s;
+            width: 560px;
+            height: 560px;
+            top: -120px;
+            left: 12%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.45), transparent 70%);
+            animation-duration: 24s;
         }
 
         &--2 {
-            width: 450px;
-            height: 450px;
-            bottom: -50px;
-            right: 10%;
-            background: radial-gradient(circle, rgba(217, 70, 239, 0.25), transparent 70%);
-            animation-duration: 26s;
-            animation-delay: -5s;
+            width: 480px;
+            height: 480px;
+            bottom: -60px;
+            right: 8%;
+            background: radial-gradient(circle, rgba(217, 70, 239, 0.32), transparent 70%);
+            animation-duration: 28s;
+            animation-delay: -7s;
         }
 
         &--3 {
-            width: 350px;
-            height: 350px;
-            top: 40%;
-            left: 60%;
-            background: radial-gradient(circle, rgba(6, 182, 212, 0.2), transparent 70%);
-            animation-duration: 18s;
-            animation-delay: -10s;
+            width: 380px;
+            height: 380px;
+            top: 38%;
+            left: 58%;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.25), transparent 70%);
+            animation-duration: 20s;
+            animation-delay: -12s;
+        }
+
+        /* 4th orb for extra depth */
+        &--4 {
+            width: 300px;
+            height: 300px;
+            top: 60%;
+            left: 5%;
+            background: radial-gradient(circle, rgba(244, 114, 182, 0.18), transparent 70%);
+            animation-duration: 32s;
+            animation-delay: -3s;
         }
     }
 
@@ -114,10 +137,10 @@ html, body, #root {
         position: absolute;
         inset: 0;
         background-image: 
-            linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-        background-size: 40px 40px;
-        mask-image: radial-gradient(ellipse at 50% 50%, black 40%, transparent 80%);
+            linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+        background-size: 44px 44px;
+        mask-image: radial-gradient(ellipse at 50% 40%, black 30%, transparent 75%);
     }
 }
 
@@ -181,83 +204,146 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ── Keyframe Animations ── */
+
+/* Luminous Labs easing — used throughout site */
+:root {
+    --ease-ll: cubic-bezier(0.625, 0.05, 0, 1);
+    --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 @keyframes floatOrb {
-    0% {
-        transform: translate(0, 0) scale(1);
-    }
-    50% {
-        transform: translate(40px, -30px) scale(1.08);
-    }
-    100% {
-        transform: translate(-30px, 40px) scale(0.95);
-    }
+    0%   { transform: translate(0, 0) scale(1); }
+    33%  { transform: translate(50px, -40px) scale(1.12); }
+    66%  { transform: translate(-20px, 60px) scale(0.92); }
+    100% { transform: translate(0, 0) scale(1); }
 }
 
 @keyframes fadeInScale {
-    0% {
-        opacity: 0;
-        transform: scale(0.97) translateY(10px);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
+    0%   { opacity: 0; transform: scale(0.97) translateY(10px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
 }
 
 @keyframes slideUpFade {
-    0% {
-        opacity: 0;
-        transform: translateY(16px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    0%   { opacity: 0; transform: translateY(16px); }
+    100% { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes pulseGlow {
-    0%, 100% {
-        opacity: 0.6;
-        transform: scale(1);
-    }
-    50% {
-        opacity: 1;
-        transform: scale(1.05);
-    }
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50%       { opacity: 1;   transform: scale(1.05); }
 }
 
 @keyframes shimmerEffect {
-    0% {
-        background-position: -200% 0;
-    }
-    100% {
-        background-position: 200% 0;
-    }
+    0%   { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
 }
 
 @keyframes spinSlow {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
 }
 
 @keyframes shake {
     0%, 100% { transform: translateX(0); }
-    20%, 60% { transform: translateX(-6px); }
-    40%, 80% { transform: translateX(6px); }
+    20%, 60%  { transform: translateX(-6px); }
+    40%, 80%  { transform: translateX(6px); }
 }
 
-.animate-fade-in {
-    animation: fadeInScale 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+/* ── Luminous Labs: Blur-Reveal Animation ── */
+/* Elements start blurred + invisible, unblur as they scroll into view.
+   Trigger by adding `data-reveal` attribute to any element.
+   JS IntersectionObserver adds `.is-visible` to activate. */
+[data-reveal] {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(14px);
+    transition:
+        opacity 800ms var(--ease-ll),
+        filter  800ms var(--ease-ll),
+        transform 800ms var(--ease-ll);
+    backface-visibility: hidden;
+    will-change: opacity, filter, transform;
+
+    &.is-visible {
+        opacity: 1;
+        filter: blur(0px);
+        transform: translateY(0);
+    }
+
+    /* Stagger delays via data-delay attribute */
+    &[data-delay="100"] { transition-delay: 100ms; }
+    &[data-delay="150"] { transition-delay: 150ms; }
+    &[data-delay="200"] { transition-delay: 200ms; }
+    &[data-delay="250"] { transition-delay: 250ms; }
+    &[data-delay="300"] { transition-delay: 300ms; }
+    &[data-delay="400"] { transition-delay: 400ms; }
+    &[data-delay="500"] { transition-delay: 500ms; }
+    &[data-delay="600"] { transition-delay: 600ms; }
 }
 
-.animate-slide-up {
-    animation: slideUpFade 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    [data-reveal] {
+        opacity: 1;
+        filter: none;
+        transform: none;
+        transition: none;
+    }
 }
 
-.shake-animation {
-    animation: shake 0.4s ease-in-out;
+/* ── Luminous Labs: Gradient Text Sweep ── */
+/* Matches [data-grad] on the reference site.
+   Adapted to brand palette: indigo → violet → fuchsia → cyan */
+@keyframes gradientSweep {
+    0%   { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
+
+.gradient-sweep-text {
+    background-image: linear-gradient(
+        90deg,
+        currentColor 0,
+        currentColor 30%,
+        #818cf8 40%,
+        #c084fc 50%,
+        #f472b6 58%,
+        #06b6d4 65%,
+        transparent 70%,
+        transparent
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 400%;
+    background-position: 100% 50%;
+    animation: gradientSweep 1.6s var(--ease-ll) forwards;
+    animation-delay: 400ms;
+}
+
+/* ── Luminous Labs: CSS Marquee ── */
+@keyframes marqueeX {
+    to { transform: translateX(-50%); }
+}
+
+.marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marqueeX 28s linear infinite;
+    animation-play-state: running;
+
+    &:hover {
+        animation-play-state: paused;
+    }
+}
+
+/* ── Luminous Labs: Button Gradient Sweep ── */
+/* Matches rgm-btn__bg — gradient washes across button bg on hover */
+@keyframes btnSweepIn {
+    from { background-position: 134% 50%; }
+    to   { background-position: 0% 50%; }
+}
+
+/* ── Animate Utilities ── */
+.animate-fade-in  { animation: fadeInScale 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-slide-up { animation: slideUpFade 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.shake-animation  { animation: shake 0.4s ease-in-out; }

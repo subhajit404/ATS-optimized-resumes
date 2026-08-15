@@ -29,7 +29,7 @@
     flex-direction: column;
     align-items: center;
     gap: 1rem;
-    animation: fadeInScale 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    /* Entry animation now handled by data-reveal blur-in */
 
     &__badge {
         display: inline-flex;
@@ -98,7 +98,8 @@
         padding: 0.25rem 0.75rem;
         border-radius: 999px;
         cursor: pointer;
-        transition: all 0.2s ease;
+        /* LL easing */
+        transition: all 400ms cubic-bezier(0.625, 0.05, 0, 1);
         display: inline-flex;
         align-items: center;
         gap: 0.35rem;
@@ -107,8 +108,66 @@
             background: rgba(99, 102, 241, 0.15);
             border-color: rgba(99, 102, 241, 0.4);
             color: #ffffff;
-            transform: translateY(-1px);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
         }
+
+        &:active {
+            transform: scale(0.95);
+        }
+    }
+}
+
+/* ── Marquee Skill Strip (Luminous Labs logo strip style) ── */
+.skill-marquee-wrap {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: 0.75rem 0;
+
+    /* Fade masks on edges */
+    &::before,
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 80px;
+        z-index: 2;
+        pointer-events: none;
+    }
+    &::before {
+        left: 0;
+        background: linear-gradient(to right, var(--bg-base), transparent);
+    }
+    &::after {
+        right: 0;
+        background: linear-gradient(to left, var(--bg-base), transparent);
+    }
+}
+
+.skill-marquee-viewport {
+    overflow: hidden;
+}
+
+.marquee-badge {
+    flex-shrink: 0;
+    padding: 0.3rem 0.9rem;
+    margin: 0 0.4rem;
+    background: rgba(99, 102, 241, 0.08);
+    border: 1px solid rgba(99, 102, 241, 0.18);
+    border-radius: 999px;
+    color: #a5b4fc;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    transition: all 400ms cubic-bezier(0.625, 0.05, 0, 1);
+
+    &:hover {
+        background: rgba(99, 102, 241, 0.18);
+        border-color: rgba(99, 102, 241, 0.4);
+        color: #ffffff;
     }
 }
 
@@ -122,7 +181,15 @@
     border-radius: 1.5rem;
     overflow: hidden;
     box-shadow: 0 20px 60px -10px rgba(0, 0, 0, 0.7), 0 0 40px rgba(99, 102, 241, 0.1);
-    animation: slideUpFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    /* Entry animation now handled by data-reveal blur-in */
+    /* LL easing on hover glow */
+    transition: border-color 600ms cubic-bezier(0.625, 0.05, 0, 1),
+                box-shadow 600ms cubic-bezier(0.625, 0.05, 0, 1);
+
+    &:hover {
+        border-color: rgba(99, 102, 241, 0.25);
+        box-shadow: 0 20px 60px -10px rgba(0, 0, 0, 0.7), 0 0 60px rgba(99, 102, 241, 0.18);
+    }
 
     &__body {
         display: grid;
@@ -513,7 +580,8 @@
         flex-direction: column;
         gap: 0.85rem;
         cursor: pointer;
-        transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        /* LL easing for hover */
+        transition: all 500ms cubic-bezier(0.625, 0.05, 0, 1);
         text-decoration: none;
         color: inherit;
         position: relative;
@@ -521,13 +589,17 @@
         &:hover {
             background: rgba(20, 25, 38, 0.85);
             border-color: rgba(99, 102, 241, 0.35);
-            transform: translateY(-2px);
-            box-shadow: 0 12px 30px -5px rgba(0, 0, 0, 0.5), 0 0 20px rgba(99, 102, 241, 0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 16px 40px -5px rgba(0, 0, 0, 0.5), 0 0 30px rgba(99, 102, 241, 0.2);
 
             .card-arrow {
-                transform: translateX(3px);
+                transform: translateX(5px);
                 color: #818cf8;
             }
+        }
+
+        &:active {
+            transform: scale(0.97);
         }
 
         .report-card-top {
@@ -587,7 +659,7 @@
 
             .card-arrow {
                 color: var(--text-muted);
-                transition: all 0.2s ease;
+                transition: all 400ms cubic-bezier(0.625, 0.05, 0, 1);
             }
         }
     }
