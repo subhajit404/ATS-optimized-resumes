@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev:backend": "npm --prefix interview-ai-yt-main/Backend run dev",
-    "dev:frontend": "npm --prefix interview-ai-yt-main/Frontend run dev",
-    "install:all": "npm --prefix interview-ai-yt-main/Backend install && npm --prefix interview-ai-yt-main/Frontend install"
+    "dev:backend": "npm --prefix ai-roadmap/Backend run dev",
+    "dev:frontend": "npm --prefix ai-roadmap/Frontend run dev",
+    "install:all": "npm --prefix ai-roadmap/Backend install && npm --prefix ai-roadmap/Frontend install"
   }
 }
