@@ -16,7 +16,11 @@ export const useAuth = () => {
             setUser(data.user)
             return { success: true, user: data.user }
         } catch (err) {
-            const message = err.response?.data?.message || err.message || "Login failed"
+            const message = 
+                err.response?.data?.message || 
+                (err.response?.status === 500 
+                    ? "Server error (500). Please check that the backend server is running and database is connected." 
+                    : (err.message || "Login failed"))
             return { success: false, error: message }
         } finally {
             setLoading(false)
@@ -30,7 +34,11 @@ export const useAuth = () => {
             setUser(data.user)
             return { success: true, user: data.user }
         } catch (err) {
-            const message = err.response?.data?.message || err.message || "Registration failed"
+            const message = 
+                err.response?.data?.message || 
+                (err.response?.status === 500 
+                    ? "Server error (500). Please check that the backend server is running and database is connected." 
+                    : (err.message || "Registration failed"))
             return { success: false, error: message }
         } finally {
             setLoading(false)
