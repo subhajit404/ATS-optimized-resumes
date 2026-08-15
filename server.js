@@ -1,6 +1,6 @@
 require("dotenv").config()
-const app = require("./src/app")
-const connectToDB = require("./src/config/database")
+const app = require("./ai-roadmap/Backend/src/app")
+const connectToDB = require("./ai-roadmap/Backend/src/config/database")
 
 
 connectToDB()

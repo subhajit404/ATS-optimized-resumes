@@ -3,8 +3,25 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "build": "npm --prefix ai-roadmap/Frontend install && npm --prefix ai-roadmap/Frontend run build",
+    "start": "node ai-roadmap/Backend/server.js",
     "dev:backend": "npm --prefix ai-roadmap/Backend run dev",
     "dev:frontend": "npm --prefix ai-roadmap/Frontend run dev",
-    "install:all": "npm --prefix ai-roadmap/Backend install && npm --prefix ai-roadmap/Frontend install"
+    "install:all": "npm install && npm --prefix ai-roadmap/Backend install && npm --prefix ai-roadmap/Frontend install"
+  },
+  "dependencies": {
+    "@google/genai": "^1.42.0",
+    "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.2.1",
+    "multer": "^2.0.2",
+    "pdf-parse": "^2.4.5",
+    "puppeteer": "^24.37.5",
+    "zod": "^3.25.76",
+    "zod-to-json-schema": "^3.25.1"
   }
 }
