@@ -1,7 +1,6 @@
 const { GoogleGenAI } = require("@google/genai")
 const { z } = require("zod")
 const { zodToJsonSchema } = require("zod-to-json-schema")
-const puppeteer = require("puppeteer")
 
 function getAI() {
     const apiKey = process.env.GOOGLE_GENAI_API_KEY
@@ -242,6 +241,12 @@ async function generateInterviewReport({ resume, selfDescription, jobDescription
 
 
 async function generatePdfFromHtml(htmlContent) {
+    let puppeteer
+    try {
+        puppeteer = require("puppeteer")
+    } catch (e) {
+        throw new Error("Puppeteer is not available in this environment for PDF generation.")
+    }
     const browser = await puppeteer.launch({
         headless: true,
         args: ["--no-sandbox", "--disable-setuid-sandbox"]
