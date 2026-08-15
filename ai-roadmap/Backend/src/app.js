@@ -28,6 +28,19 @@ const authRouter = require("./routes/auth.routes")
 const interviewRouter = require("./routes/interview.routes")
 
 
+/* Root and health check routes */
+app.get("/", (req, res) => {
+    res.json({
+        status: "ok",
+        message: "Interview AI Workspace Backend is running",
+        timestamp: new Date().toISOString()
+    })
+})
+
+app.get("/health", (req, res) => {
+    res.json({ status: "healthy" })
+})
+
 /* using all the routes here */
 app.use("/api/auth", authRouter)
 app.use("/api/interview", interviewRouter)
